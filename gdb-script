@@ -1,0 +1,13 @@
+set breakpoint pending on
+
+file ./xpl
+start
+
+tb _dl_new_object
+continue
+tb *_dl_new_object+115
+continue
+p *(struct link_map*)$rax
+vmmap
+tb *_dl_init_paths+718
+# printf "l_info[DT_RPATH] points to: 0x%lx\n", *(unsigned long *)($rax + 0x8)
